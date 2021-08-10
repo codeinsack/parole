@@ -1,0 +1,22 @@
+{
+  "name": "Word",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "word": {
+      "type": "string",
+      "required": true,
+      "index": { "unique": true }
+    },
+    "phonetic": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
