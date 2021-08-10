@@ -16,7 +16,7 @@
           clearable
           no-filter
           return-object
-          @keydown.tab="onSearchSubmit"
+          @keydown.esc="onSearchSubmit"
           @input="onSelectedWordChange"
         />
       </VCol>
