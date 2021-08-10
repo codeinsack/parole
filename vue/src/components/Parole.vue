@@ -1,9 +1,6 @@
 <template>
   <VContainer>
-    <VRow class="mt-12">
-      <VCol>
-        <VRating v-model="complexity" length="3" large />
-      </VCol>
+    <VRow class="mt-12 mb-1">
       <VCol cols="6">
         <VAutocomplete
           :value="selectedWord"
@@ -20,10 +17,13 @@
           @input="onSelectedWordChange"
         />
       </VCol>
+      <VCol class="d-flex justify-end">
+        <VRating v-model="complexity" length="3" large />
+      </VCol>
       <VCol>
-        <VBtn :disabled="!selectedWord" color="primary" @click="onAddToDictionary">
+        <VBtn class="mt-2" :disabled="!selectedWord" color="primary" @click="onAddToDictionary">
           Add to dictionary
-          <VIcon right dark> mdi-cloud-upload </VIcon>
+          <VIcon right dark> mdi-book-open </VIcon>
         </VBtn>
       </VCol>
     </VRow>
