@@ -16,20 +16,24 @@
           clearable
           no-filter
           return-object
+          @keydown.tab="onSearchSubmit"
           @input="onSelectedWordChange"
         />
       </VCol>
-      <VCol class="d-flex">
-        <VBtn class="mr-3" color="primary" @click="onSearchSubmit">
-          Find
-          <VIcon right dark> mdi-cloud-upload </VIcon>
-        </VBtn>
+      <VCol>
         <VBtn :disabled="!selectedWord" color="primary" @click="onAddToDictionary">
           Add to dictionary
           <VIcon right dark> mdi-cloud-upload </VIcon>
         </VBtn>
       </VCol>
     </VRow>
+    <VProgressLinear
+      v-if="selectedWord && selectedWord.complexity"
+      class="my-3"
+      :color="COMPLEXITY_COLORS[selectedWord.complexity - 1]"
+      rounded
+      value="100"
+    />
     <h1 v-if="selectedWord">{{ selectedWord.word }}</h1>
     <VList v-if="selectedWord">
       <template v-for="(meaning, meaningIndex) in selectedWord.meanings">
@@ -69,6 +73,7 @@ import { useParole } from './Parole';
 export default {
   setup() {
     const {
+      COMPLEXITY_COLORS,
       search,
       complexity,
       selectedWord,
@@ -78,6 +83,7 @@ export default {
       onAddToDictionary,
     } = useParole();
     return {
+      COMPLEXITY_COLORS,
       search,
       complexity,
       selectedWord,

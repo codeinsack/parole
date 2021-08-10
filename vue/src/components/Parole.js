@@ -2,6 +2,8 @@ import { onMounted, ref, watch } from '@vue/composition-api';
 import axios from 'axios';
 import { debounce } from 'lodash';
 
+const COMPLEXITY_COLORS = ['green', 'orange', 'red'];
+
 export function useParole() {
   const complexity = ref(1);
   const search = ref('');
@@ -62,5 +64,6 @@ export function useParole() {
     onSelectedWordChange,
     onSearchSubmit,
     onAddToDictionary,
+    COMPLEXITY_COLORS,
   };
 }
