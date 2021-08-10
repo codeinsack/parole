@@ -11,11 +11,16 @@
           item-value="id"
           item-text="word"
           clearable
+          hide-no-data
           no-filter
           return-object
           @keydown.esc="onSearchSubmit"
           @input="onSelectedWordChange"
-        />
+        >
+          <template #no-data>
+            <span class="d-none" />
+          </template>
+        </VAutocomplete>
       </VCol>
       <VCol class="d-flex justify-end">
         <VRating v-model="complexity" length="3" large />

@@ -40,6 +40,7 @@ export function useParole() {
   };
 
   const onSearchSubmit = async () => {
+    if (!search.value) return;
     const { data } = await axios.get(
       `https://api.dictionaryapi.dev/api/v2/entries/en_US/${search.value}`
     );
