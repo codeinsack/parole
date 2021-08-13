@@ -1,18 +1,14 @@
-import { onMounted, ref, watch } from '@vue/composition-api';
+import { ref, watch } from '@vue/composition-api';
 import axios from 'axios';
 import { debounce } from 'lodash';
 
 const COMPLEXITY_COLORS = ['green', 'orange', 'red'];
 
-export function useParole() {
+export function useFindWordDefinition() {
   const complexity = ref(1);
   const search = ref('');
   const selectedWord = ref(null);
   const matchedWords = ref([]);
-
-  onMounted(async () => {
-    await axios.get('/api/words');
-  });
 
   watch(search, async (value) => {
     if (value) {

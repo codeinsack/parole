@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { useParole } from './FindWordDefinition';
+import { useFindWordDefinition } from './FindWordDefinition';
 
 export default {
   setup() {
@@ -86,7 +86,7 @@ export default {
       onSelectedWordChange,
       onSearchSubmit,
       onAddToDictionary,
-    } = useParole();
+    } = useFindWordDefinition();
     return {
       COMPLEXITY_COLORS,
       search,
