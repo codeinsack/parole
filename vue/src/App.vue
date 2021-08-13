@@ -1,15 +1,11 @@
 <template>
   <VApp>
-    <Parole />
+    <RouterView />
   </VApp>
 </template>
 
 <script>
-import Parole from './components/Parole.vue';
-
 export default {
-  components: {
-    Parole,
-  },
+  components: {},
 };
 </script>

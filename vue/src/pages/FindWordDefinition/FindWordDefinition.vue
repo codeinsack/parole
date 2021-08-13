@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { useParole } from './Parole';
+import { useParole } from './FindWordDefinition';
 
 export default {
   setup() {
