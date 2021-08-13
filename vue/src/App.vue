@@ -1,11 +1,19 @@
 <template>
   <VApp>
-    <RouterView />
+    <VAppBar app clipped-right>
+      <Tabs />
+      <VIcon> mdi-logout </VIcon>
+    </VAppBar>
+    <VMain>
+      <RouterView />
+    </VMain>
   </VApp>
 </template>
 
 <script>
+import Tabs from './components/Tabs.vue';
+
 export default {
-  components: {},
+  components: { Tabs },
 };
 </script>
