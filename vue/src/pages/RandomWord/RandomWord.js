@@ -1,66 +1,33 @@
-import { ref, watch } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import axios from 'axios';
-import { debounce } from 'lodash';
 
 const COMPLEXITY_COLORS = ['green', 'orange', 'red'];
 
 export function useRandomWord() {
-  const complexity = ref(1);
-  const search = ref('');
   const selectedWord = ref(null);
-  const matchedWords = ref([]);
-
-  watch(search, async (value) => {
-    if (value) {
-      debouncedFetchWords();
-    }
-  });
-
-  const fetchWords = async () => {
-    const { data } = await axios.get(
-      `/api/words?filter={"where":{"word":{"like":"${search.value}.*","options":"i"}}}`
-    );
-    matchedWords.value = data;
-  };
-
-  const debouncedFetchWords = debounce(fetchWords, 500);
+  const hideAnswer = ref(true);
 
   const playAudio = (selectedWord) => {
     const audio = selectedWord?.phonetics[0]?.audio;
     new Audio(audio)?.play();
   };
 
-  const onSelectedWordChange = async (newValue) => {
-    playAudio(newValue);
-    selectedWord.value = newValue;
+  const onRandomWordFind = async () => {
+    hideAnswer.value = true;
+    const { data } = await axios.get('/api/words/get-random-word');
+    selectedWord.value = data.data[0];
   };
 
-  const onSearchSubmit = async () => {
-    if (!search.value) return;
-    const { data } = await axios.get(
-      `https://api.dictionaryapi.dev/api/v2/entries/en_US/${search.value}`
-    );
-    if (data) {
-      playAudio(data[0]);
-      selectedWord.value = data[0];
-    }
-  };
-
-  const onAddToDictionary = async () => {
-    await axios.post('/api/words', {
-      ...selectedWord.value,
-      complexity: complexity.value,
-    });
+  const onWordReveal = () => {
+    hideAnswer.value = false;
+    playAudio(selectedWord.value);
   };
 
   return {
-    search,
-    complexity,
     selectedWord,
-    matchedWords,
-    onSelectedWordChange,
-    onSearchSubmit,
-    onAddToDictionary,
+    onRandomWordFind,
     COMPLEXITY_COLORS,
+    onWordReveal,
+    hideAnswer,
   };
 }

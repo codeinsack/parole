@@ -1,34 +1,17 @@
 <template>
   <VContainer>
     <VRow class="mt-12 mb-1">
-      <VCol cols="6">
-        <VAutocomplete
-          :value="selectedWord"
-          :items="matchedWords"
-          :search-input.sync="search"
-          label="Search"
-          autocomplete="off"
-          item-value="id"
-          item-text="word"
-          clearable
-          hide-no-data
-          no-filter
-          return-object
-          @keydown.esc="onSearchSubmit"
-          @input="onSelectedWordChange"
-        >
-          <template #no-data>
-            <span class="d-none" />
-          </template>
-        </VAutocomplete>
-      </VCol>
+      <VCol cols="6"> </VCol>
       <VCol class="d-flex justify-end">
-        <VRating v-model="complexity" length="3" large />
+        <VBtn class="mt-2" color="primary" @click="onRandomWordFind">
+          Find random word
+          <VIcon right dark> mdi-file-find </VIcon>
+        </VBtn>
       </VCol>
       <VCol>
-        <VBtn class="mt-2" :disabled="!selectedWord" color="primary" @click="onAddToDictionary">
-          Add to dictionary
-          <VIcon right dark> mdi-book-open </VIcon>
+        <VBtn class="mt-2" color="primary" :disabled="!selectedWord" @click="onWordReveal">
+          Reveal word
+          <VIcon right dark> mdi-cannabis </VIcon>
         </VBtn>
       </VCol>
     </VRow>
@@ -39,7 +22,9 @@
       rounded
       value="100"
     />
-    <h1 v-if="selectedWord">{{ selectedWord.word }}</h1>
+    <h1 v-if="selectedWord" :style="`visibility: ${hideAnswer ? 'hidden' : 'visible'}`">
+      {{ selectedWord.word }}
+    </h1>
     <VList v-if="selectedWord">
       <template v-for="(meaning, meaningIndex) in selectedWord.meanings">
         <VListItem :key="meaningIndex">
@@ -50,7 +35,9 @@
             <template v-for="(definition, definitionIndex) in meaning.definitions">
               <div :key="definitionIndex" class="mb-4">
                 <VListItemTitle>{{ definition.definition }}</VListItemTitle>
-                <VListItemSubtitle>{{ definition.example || '...' }}</VListItemSubtitle>
+                <VListItemSubtitle :style="`visibility: ${hideAnswer ? 'hidden' : 'visible'}`">{{
+                  definition.example || '...'
+                }}</VListItemSubtitle>
                 <div>
                   <VChip
                     v-for="synonym in definition.synonyms"
@@ -77,25 +64,14 @@ import { useRandomWord } from './RandomWord';
 
 export default {
   setup() {
-    const {
-      COMPLEXITY_COLORS,
-      search,
-      complexity,
-      selectedWord,
-      matchedWords,
-      onSelectedWordChange,
-      onSearchSubmit,
-      onAddToDictionary,
-    } = useRandomWord();
+    const { selectedWord, onRandomWordFind, onWordReveal, COMPLEXITY_COLORS, hideAnswer } =
+      useRandomWord();
     return {
-      COMPLEXITY_COLORS,
-      search,
-      complexity,
       selectedWord,
-      matchedWords,
-      onSelectedWordChange,
-      onSearchSubmit,
-      onAddToDictionary,
+      onRandomWordFind,
+      onWordReveal,
+      COMPLEXITY_COLORS,
+      hideAnswer,
     };
   },
 };
