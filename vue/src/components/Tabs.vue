@@ -13,6 +13,7 @@ export default {
       tabs: [
         { tab: 'Find Word', link: '/' },
         { tab: 'Dictionary List', link: '/dictionary-list' },
+        { tab: 'Random Word', link: '/random-word' },
       ],
     };
   },

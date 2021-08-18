@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import DictionaryList from '../pages/DictionaryList/DictionaryList.vue';
 import FindWordDefinition from '../pages/FindWordDefinition/FindWordDefinition.vue';
+import RandomWord from '../pages/RandomWord/RandomWord.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,10 @@ const routes = [
   {
     path: '/dictionary-list',
     component: DictionaryList,
+  },
+  {
+    path: '/random-word',
+    component: RandomWord,
   },
 ];
 

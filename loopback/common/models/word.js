@@ -24,6 +24,6 @@ module.exports = function (Word) {
 
   Word.remoteMethod("getRandomWord", {
     returns: { arg: "data" },
-    http: { path: "/random", verb: "get" },
+    http: { path: "/get-random-word", verb: "get" },
   });
 };
