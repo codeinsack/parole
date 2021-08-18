@@ -1,5 +1,5 @@
 <template>
-  <VContainer>
+  <VContainer class="random-word">
     <VRow class="mt-12 mb-1">
       <VCol class="title" cols="6">
         Total words: <span>{{ totalWords }}</span></VCol
@@ -24,9 +24,23 @@
       rounded
       value="100"
     />
-    <h1 v-if="selectedWord" :style="`visibility: ${hideAnswer ? 'hidden' : 'visible'}`">
-      {{ selectedWord.word }}
-    </h1>
+    <template v-if="selectedWord">
+      <span v-for="(letter, index) in selectedWord.word" :key="index" class="mr-2">
+        <VChip
+          class="random-word__letter"
+          :color="COMPLEXITY_COLORS[selectedWord.complexity - 1]"
+          outlined
+          label
+        >
+          <span
+            class="font-weight-bold"
+            :style="`visibility: ${hideAnswer ? 'hidden' : 'visible'}`"
+          >
+            {{ letter.toUpperCase() }}
+          </span>
+        </VChip>
+      </span>
+    </template>
     <VList v-if="selectedWord">
       <template v-for="(meaning, meaningIndex) in selectedWord.meanings">
         <VListItem :key="meaningIndex">
@@ -86,4 +100,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.random-word {
+  &__letter {
+    width: 30px;
+  }
+}
+</style>
