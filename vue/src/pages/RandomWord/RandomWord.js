@@ -1,4 +1,4 @@
-import { ref } from '@vue/composition-api';
+import { onMounted, ref } from '@vue/composition-api';
 import axios from 'axios';
 
 const COMPLEXITY_COLORS = ['green', 'orange', 'red'];
@@ -6,6 +6,12 @@ const COMPLEXITY_COLORS = ['green', 'orange', 'red'];
 export function useRandomWord() {
   const selectedWord = ref(null);
   const hideAnswer = ref(true);
+  const totalWords = ref(0);
+
+  onMounted(async () => {
+    const { data } = await axios.get('/api/words/count');
+    totalWords.value = data.count;
+  });
 
   const playAudio = (selectedWord) => {
     const audio = selectedWord?.phonetics[0]?.audio;
@@ -29,5 +35,6 @@ export function useRandomWord() {
     COMPLEXITY_COLORS,
     onWordReveal,
     hideAnswer,
+    totalWords,
   };
 }

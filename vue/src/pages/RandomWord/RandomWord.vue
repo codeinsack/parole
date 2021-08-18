@@ -1,7 +1,9 @@
 <template>
   <VContainer>
     <VRow class="mt-12 mb-1">
-      <VCol cols="6"> </VCol>
+      <VCol class="title" cols="6">
+        Total words: <span>{{ totalWords }}</span></VCol
+      >
       <VCol class="d-flex justify-end">
         <VBtn class="mt-2" color="primary" @click="onRandomWordFind">
           Find random word
@@ -64,14 +66,21 @@ import { useRandomWord } from './RandomWord';
 
 export default {
   setup() {
-    const { selectedWord, onRandomWordFind, onWordReveal, COMPLEXITY_COLORS, hideAnswer } =
-      useRandomWord();
+    const {
+      selectedWord,
+      onRandomWordFind,
+      onWordReveal,
+      COMPLEXITY_COLORS,
+      hideAnswer,
+      totalWords,
+    } = useRandomWord();
     return {
       selectedWord,
       onRandomWordFind,
       onWordReveal,
       COMPLEXITY_COLORS,
       hideAnswer,
+      totalWords,
     };
   },
 };
